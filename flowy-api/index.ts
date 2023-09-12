@@ -11,7 +11,7 @@ app.use(cors({ origin: "*" }));
 const authRouter = require("./routes/auth");
 
 mongoose.connect(
-  "mongodb+srv://baranoden:123asddasd@cluster0.daney0d.mongodb.net/flowy?retryWrites=true&w=majority"
+  "mongodb+srv://mongousername:mongopassword@cluster0.daney0d.mongodb.net/flowy?retryWrites=true&w=majority"
 );
 app.use("/api/auth", authRouter);
 
