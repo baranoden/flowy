@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import { signOut } from "./store/slice";

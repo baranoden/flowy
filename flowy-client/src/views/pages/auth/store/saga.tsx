@@ -1,11 +1,11 @@
 import { authTypes } from "./types";
-import { all, call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest } from "redux-saga/effects";
 import { canLogin } from "./slice";
 import axios, { AxiosResponse } from "axios";
 import { application } from "../../../../redux/store";
 import toast from "react-hot-toast";
 import { parser } from "../../../../libs/parser/parser";
-import { LanguageFunc } from "../../../../libs/languageFunc/LanguageFunc";
+import { FormattedMessage } from "react-intl";
 
 function* registerHandler({ payload }: any) {
   try {
@@ -18,9 +18,9 @@ function* registerHandler({ payload }: any) {
     );
 
     yield put(canLogin(response.data));
-    toast.success("Success");
+    toast.success(<FormattedMessage id="REGISTER_SUCCESS" />);
   } catch (e) {
-    toast.error("Failure");
+    toast.error(<FormattedMessage id="REGISTER_FAILURE" />);
     yield put(canLogin(false));
   }
 }
@@ -33,10 +33,10 @@ function* validateHandler({ payload }: any) {
         username: parser("currentUser").username,
       })
     );
-    toast.success("Success");
+    toast.success(<FormattedMessage id="VALIDATE_SUCCESS" />);
     yield put(canLogin(response.data));
   } catch (e) {
-    toast.error("Failure");
+    toast.error(<FormattedMessage id="VALIDATE_ERROR" />);
   }
 }
 
@@ -49,9 +49,9 @@ function* loginHandler({ payload }: any) {
       })
     );
     yield put(canLogin(response.data.data));
-    toast.success("Success");
+    toast.success(<FormattedMessage id="LOGIN_SUCCESS" />);
   } catch (e) {
-    toast.error("Failure");
+    toast.error(<FormattedMessage id="LOGIN_ERROR" />);
   }
 }
 

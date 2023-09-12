@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "./header";
+import styles from "./Layout.module.scss";
 
 const Layout = () => {
   return (
@@ -7,7 +8,7 @@ const Layout = () => {
       <div>
         <Header />
       </div>
-      <div data-testid="Outlet">
+      <div className={styles.outlet}>
         <Outlet />
       </div>
     </div>

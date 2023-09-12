@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import CustomInput from "../../components/customInput/CustomInput";
 import styles from "./Login.module.scss";
-import CustomButton from "../../components/customButton/CustomButton";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { authTypes } from "./store/types";
 import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
 import { stepType } from "../../../libs/enumTypes/enumTypes";
 import { useAppSelector } from "../../../redux/store";
 import CustomSelect from "../../components/customSelect/CustomSelect";
 import { occOptions } from "../../../libs/selectItems/selectItems";
 import { parser } from "../../../libs/parser/parser";
 import { useIntl } from "react-intl";
-import { generalTypes } from "../store/types";
+
 const Register: React.FC = () => {
   const intl = useIntl();
   const nav = useNavigate();
   const dispatch = useDispatch();
   const user: any = useAppSelector((state: any) => state.authSlice.user);
   const isLogged = useAppSelector((state: any) => state.authSlice.isLogged);
-  const lang: any = useAppSelector(
-    (state: any) => state.generalSlice.intl.locale
-  );
+
   const [step, setStep] = useState(stepType.first);
   const initialValues: any = {
     username: "",
@@ -34,41 +30,39 @@ const Register: React.FC = () => {
   const secondValues: any = {
     info: "",
   };
-  const {
-    handleSubmit,
-    handleChange,
-    values,
-    errors,
-    isSubmitting,
-    touched,
-    resetForm,
-    setFieldValue,
-  } = useFormik({
-    initialValues: step === stepType.first ? initialValues : secondValues,
-    validationSchema:
-      step === stepType.first
-        ? Yup.object({
-            username: Yup.string().required("USERNAME_REQUIRED"),
-            password: Yup.string().required("PASSWORD_REQUIRED"),
-          })
-        : Yup.object({
-            info: Yup.string().required("INFO_REQUIRED"),
-          }),
-    onSubmit: (values) => {
-      if (step === stepType.first) {
-        dispatch({
-          type: authTypes.REGISTER,
-          payload: values,
-        });
-      }
-      if (step === stepType.second) {
-        dispatch({
-          type: authTypes.VALIDATE,
-          payload: values,
-        });
-      }
-    },
-  });
+  const { handleSubmit, handleChange, values, errors, touched, setFieldValue } =
+    useFormik({
+      initialValues: step === stepType.first ? initialValues : secondValues,
+      validationSchema:
+        step === stepType.first
+          ? Yup.object({
+              username: Yup.string().required(
+                intl.formatMessage({ id: "USERNAME_REQUIRED" })
+              ),
+              password: Yup.string().required(
+                intl.formatMessage({ id: "PASSWORD_REQUIRED" })
+              ),
+            })
+          : Yup.object({
+              info: Yup.string().required(
+                intl.formatMessage({ id: "INFO_REQUIRED" })
+              ),
+            }),
+      onSubmit: (values) => {
+        if (step === stepType.first) {
+          dispatch({
+            type: authTypes.REGISTER,
+            payload: values,
+          });
+        }
+        if (step === stepType.second) {
+          dispatch({
+            type: authTypes.VALIDATE,
+            payload: values,
+          });
+        }
+      },
+    });
 
   useEffect(() => {
     if (isLogged) {
@@ -89,16 +83,6 @@ const Register: React.FC = () => {
           className={`col-md-6  d-flex justify-content-center align-items-center flex-column ${styles.leftBox} ${styles.rounded4}`}
           style={{ background: "#103cbe" }}
         >
-          <button
-            onClick={() =>
-              dispatch({
-                type: generalTypes.SET_LOCALE,
-                payload: lang === "tr" ? "en" : "tr",
-              })
-            }
-          >
-            baran
-          </button>
           <p className="text-white fs-2" style={{ fontWeight: "600;" }}>
             <p>{intl.formatMessage({ id: "OCCUPATION_STEP" })}</p>
           </p>
@@ -139,7 +123,7 @@ const Register: React.FC = () => {
                   </div>
                   <div className="input-group mb-1">
                     <CustomInput
-                      type="text"
+                      type="password"
                       name="password"
                       placeholder={intl.formatMessage({ id: "PASSWORD" })}
                       className="form-control form-control-lg bg-light fs-6"
@@ -177,7 +161,10 @@ const Register: React.FC = () => {
                 </>
               )}
               <div className="input-group mb-3 mt-4">
-                <button className="btn btn-lg btn-primary w-100 fs-6">
+                <button
+                  type="submit"
+                  className="btn btn-lg btn-primary w-100 fs-6"
+                >
                   {step === stepType.first
                     ? intl.formatMessage({ id: "REGISTER" })
                     : intl.formatMessage({ id: "BEGIN" })}
@@ -193,6 +180,13 @@ const Register: React.FC = () => {
                     </small>
                   </button>
                 </div>
+                {touched.password && errors.password && (
+                  <p style={{ color: "red" }}>{errors.password as any}</p>
+                )}
+                {touched.username && errors.username && (
+                  <p style={{ color: "red" }}>{errors.username as any}</p>
+                )}
+
                 <div className="row">
                   <small>
                     {intl.formatMessage({ id: "ALREADY_HAVE_ACC" })}{" "}
@@ -202,6 +196,9 @@ const Register: React.FC = () => {
                   </small>
                 </div>
               </>
+            )}
+            {errors.info && (
+              <p style={{ color: "red" }}>{errors.info as any}</p>
             )}
           </div>
         </div>

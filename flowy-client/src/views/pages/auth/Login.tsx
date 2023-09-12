@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import CustomInput from "../../components/customInput/CustomInput";
 import styles from "./Login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { authTypes } from "./store/types";
 import { useIntl } from "react-intl";
-import toast from "react-hot-toast";
 
 const Login: React.FC = () => {
   const intl = useIntl();
@@ -87,7 +86,7 @@ const Login: React.FC = () => {
               </div>
               <div className="input-group mb-1 d-flex">
                 <CustomInput
-                  type="text"
+                  type="password"
                   name="password"
                   placeholder={intl.formatMessage({ id: "PASSWORD" })}
                   className="form-control form-control-lg bg-light fs-6"

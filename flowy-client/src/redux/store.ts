@@ -14,7 +14,7 @@ export const store = configureStore({
 saga.run(rootSaga);
 
 export const application = {
-  api: "http://localhost:3332",
+  api: "http://localhost:3302",
 };
 
 export type RootState = ReturnType<typeof store.getState>;

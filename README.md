@@ -1,6 +1,10 @@
 # Flowy React App with Node.js Express Backend
 
-This is a simple web application built with React on the front end and a Node.js Express server on the back end and uses Mongodb. It demonstrates a basic setup for a full-stack web application.
+This is a simple web application built with React on the front end and a Node.js Express server on the back end and uses Mongodb. It demonstrates an advanced setup for a full-stack web application.
+
+## Important Note
+
+Don't forget to install force while you are installing front dependencies.
 
 ## Features
 
@@ -17,7 +21,7 @@ This is a simple web application built with React on the front end and a Node.js
 - Differently from i18next it has a dynamic structure due to Redux.
 - It was not easy to integrate with redux saga, Redux intl designed to mainly usage with redux-thunk. but its also compatible with saga aswell.
 - Currently there is only 2 language but its not hard to add other languages.
-- It would only take 1 min to add and couple more minutes to translate other files within `src/intl/{locale}.json`.
+- It would only take 1 min to add new language and couple more minutes to translate other files within `src/intl/{locale}.json`.
 - Note: react-intl-redux package 2.4 is broken. It doesnt have libs folder within it, so it is not working thats why i used depecrated version of it which is 2.3.
 
 ### 3- Complex Form Handling and Validation: 2 Step register with formik and redux saga.
@@ -58,7 +62,7 @@ Before you begin, make sure you have the following installed on your machine:
 
     After you install all neccessary node modules for client go back into main folder.
 
-    Install dependencies for both the React app and the Node.js Express server:
+    Install dependencies for the Node.js Express server:
 
     ```
        cd flowy-api
@@ -86,13 +90,13 @@ Navigate to the server directory:
 
        npm run start
 
-The server will be running at http://localhost:3332. Backend has node mon so it will work indefinitely.
+The server will be running at http://localhost:3302. Backend has node mon so it will work indefinitely.
 
-if 3332 or 3000 occupied you can change it within index.ts in server side.
+if 3302 or 3000 occupied you can change it within index.ts in server side.
 
 ### Important Notes
 
-I didnt use any .env files due to app's complexitity. I added my own mongodb authentication to it, feel free to use it, no need to change.
+I didnt use any .env files due to app's complexitity. Simply add your mongodb connect ssh to serverside index.ts.
 
 ### Accessing the Application
 
