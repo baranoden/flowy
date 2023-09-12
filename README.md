@@ -5,6 +5,7 @@ This is a simple web application built with React on the front end and a Node.js
 ## Important Note
 
 Don't forget to install force while you are installing front dependencies.
+Also don't forget to insert your mongo db connection uri into index.ts within server.
 
 ## Features
 
